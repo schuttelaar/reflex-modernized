@@ -11,18 +11,15 @@
 }
 
 @mixin calc-reflex-columns($index, $class, $type) {
-    @if $type == width and $index > 0 {
+    @if $type ==width and $index >0 {
         .#{$reflex-prefix}#{$class}#{$index} {
-            width: percentage(($index / $reflex-columns));
-            @if $legacy-support == true {
-                *width: percentage(($index / $reflex-columns)) - .1; // ie7 css hack
-            }
+            width: percentage(calc($index / $reflex-columns));
         }
     }
 }
 
 @mixin loop-reflex-columns($index, $class, $type) {
-    @if $index >= 0 {
+    @if $index >=0 {
         @include calc-reflex-columns($index, $class, $type);
         // next iteration
         @include loop-reflex-columns(($index - 1), $class, $type);
@@ -32,49 +29,6 @@
 // defaults for auto cols
 @mixin setup-auto-cols() {
     @include flex(1, 0, 0px); // a unit on last value is required by IE10-11
-
-    @if $legacy-support == true {
-        width: auto;
-    }
-}
-
-// --------------------------------------------------
-// inline-block specific mixins
-// --------------------------------------------------
-
-@mixin setup-whitespace() {
-    @if $legacy-support == true {
-        letter-spacing: -.31em;
-        *letter-spacing: normal;
-        word-spacing: -.43em;
-    }
-}
-
-@mixin reset-whitespace() {
-    @if $legacy-support == true {
-        letter-spacing: normal;
-        word-spacing: normal;
-        white-space: normal;
-    }
-}
-
-@mixin reset-text-align() {
-    //
-    // We want to reset any text-align properties set by the grid
-    // (required for the inline-block fallback)
-    // but we don't want to override any text-align properties
-    // set on the individual col-x element
-    // or on any of it's child elements
-    //
-    // 1) set to left by default (works everywhere)
-    // 2) set to start (respects right to left text)
-    //
-    text-align: left;
-    text-align: start;
-    -moz-text-align-last: left;
-    -moz-text-align-last: start;
-    text-align-last: left;
-    text-align-last: start;
 }
 
 // --------------------------------------------------
@@ -92,10 +46,11 @@
 }
 
 @mixin loop-order-helpers($index, $breakpoint: null) {
-    @if $index >= 0 {
+    @if $index >=0 {
         .#{$reflex-prefix}order#{$breakpoint}-#{$index} {
             @include order($index);
         }
+
         // next iteration
         @include loop-order-helpers(($index - 1), $breakpoint);
     }
@@ -105,15 +60,14 @@
 // offset class generation mixins
 // --------------------------------------------------
 @mixin offset($index: 0) {
-    $offset: ($index / $reflex-columns);
+    $offset: calc($index / $reflex-columns);
+
     // convert to percentage only if not zero
-    @if $offset != 0 {
+    @if $offset !=0 {
         $offset: percentage($offset);
     }
+
     margin-left: $offset;
-    @if $legacy-support == true {
-        *margin-left: percentage(($index / $reflex-columns)) - .1; // ie7 css hack
-    }
 }
 
 @mixin make-offset-helpers() {
@@ -121,16 +75,20 @@
 }
 
 @mixin loop-offset-helpers($index, $breakpoint: null) {
-    @if $index > 0 and $breakpoint == null {
+    @if $index >0 and $breakpoint ==null {
         .#{$reflex-prefix}offset#{$breakpoint}-#{$index} {
             @include offset($index);
         }
+
         // next iteration
         @include loop-offset-helpers(($index - 1), $breakpoint);
-    } @else if $index >= 0 and $breakpoint != null {
+    }
+
+    @else if $index >=0 and $breakpoint !=null {
         .#{$reflex-prefix}offset#{$breakpoint}-#{$index} {
             @include offset($index);
         }
+
         // next iteration
         @include loop-offset-helpers(($index - 1), $breakpoint);
     }
@@ -155,9 +113,11 @@
 // ---
 
 @mixin flex($grow: 0, $shrink: 1, $basis: auto) {
-    @if $basis == 0 {
+    @if $basis ==0 {
         -ms-flex: $grow $shrink auto; //ie10 needs auto
-    } @else {
+    }
+
+    @else {
         -ms-flex: $grow $shrink $basis;
     }
 
@@ -165,19 +125,19 @@
     flex: $grow $shrink $basis;
 }
 
-@mixin flex-grow($grow:1) {
+@mixin flex-grow($grow: 1) {
     -ms-flex-positive: $grow;
     -webkit-flex-grow: $grow;
     flex-grow: $grow;
 }
 
-@mixin flex-shrink($shrink:1) {
+@mixin flex-shrink($shrink: 1) {
     -ms-flex-negative: $shrink;
     -webkit-flex-shrink: $shrink;
     flex-shrink: $shrink;
 }
 
-@mixin flex-basis($basis:auto) {
+@mixin flex-basis($basis: auto) {
     -ms-flex-preferred-size: $basis;
     -webkit-flex-basis: $basis;
     flex-basis: $basis;
@@ -229,35 +189,51 @@
 // ---
 
 @mixin ms-align-items($align) {
-    @if $align == 'flex-start' {
+    @if $align =='flex-start' {
         -ms-flex-align: start;
-    } @else if $align == 'flex-end' {
+    }
+
+    @else if $align =='flex-end' {
         -ms-flex-align: end;
-    } @else {
+    }
+
+    @else {
         -ms-flex-align: $align;
     }
 }
 
 @mixin ms-align-self($align) {
-    @if $align == 'flex-start' {
+    @if $align =='flex-start' {
         -ms-flex-item-align: start;
-    } @else if $align == 'flex-end' {
+    }
+
+    @else if $align =='flex-end' {
         -ms-flex-item-align: end;
-    } @else {
+    }
+
+    @else {
         -ms-flex-item-align: $align;
     }
 }
 
 @mixin ms-align-content($align) {
-    @if $align == 'flex-start' {
+    @if $align =='flex-start' {
         -ms-flex-line-pack: start;
-    } @else if $align == 'flex-end' {
+    }
+
+    @else if $align =='flex-end' {
         -ms-flex-line-pack: end;
-    } @else if $align == 'space-between' {
+    }
+
+    @else if $align =='space-between' {
         -ms-flex-line-pack: justify;
-    } @else if $align == 'space-around' {
+    }
+
+    @else if $align =='space-around' {
         -ms-flex-line-pack: distribute;
-    } @else {
+    }
+
+    @else {
         -ms-flex-line-pack: $align;
     }
 }
@@ -305,7 +281,7 @@
 // --------------------------------------------------
 
 @mixin responsive-visibility-helpers() {
-    @if $visibility-helpers == true {
+    @if $visibility-helpers ==true {
         // We need to handle xxs and xlg breakpoints differently
         $map-reflex-breakpoints: map-remove($reflex-breakpoints, xxs, xlg);
 
@@ -321,7 +297,7 @@
                     display: none;
                 }
             }
-        
+
 
             .#{$reflex-prefix}hidden-#{$bp}-down {
                 @include media-breakpoint-down($bp) {

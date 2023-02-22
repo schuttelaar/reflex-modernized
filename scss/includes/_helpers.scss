@@ -1,4 +1,3 @@
-
 // --------------------------------------------------
 // grid modifiers
 // --------------------------------------------------
@@ -56,24 +55,10 @@
 
 .#{$reflex-prefix}align-end {
     @include align-items(flex-end);
-
-    @if $legacy-support == true {
-        // fallback to legacy vertical-align
-        [class*="#{$reflex-prefix}col-"] {
-            vertical-align: bottom;
-        }
-    }
 }
 
 .#{$reflex-prefix}align-center {
     @include align-items(center);
-
-    @if $legacy-support == true {
-        // fallback to legacy vertical-align
-        [class*="#{$reflex-prefix}col-"] {
-            vertical-align: middle;
-        }
-    }
 }
 
 .#{$reflex-prefix}align-baseline {
@@ -142,76 +127,22 @@
 
 .#{$reflex-prefix}justify-start {
     @include justify-content-start();
-
-    @if $legacy-support == true {
-        &.grid {
-            text-align: left;
-        }
-    }
 }
 
 .#{$reflex-prefix}justify-end {
     @include justify-content-end();
-
-    @if $legacy-support == true {
-        &.grid {
-            text-align: right;
-            -moz-text-align-last: right;
-            text-align-last: right;
-
-            [class*="#{$reflex-prefix}col-"] {
-                @include reset-text-align();
-            }
-        }
-    }
 }
 
 .#{$reflex-prefix}justify-center {
     @include justify-content-center();
-
-    @if $legacy-support == true {
-        &.grid {
-            text-align: center;
-            -moz-text-align-last: center;
-            text-align-last: center;
-
-            [class*="#{$reflex-prefix}col-"] {
-                @include reset-text-align();
-            }
-        }
-    }
 }
 
 .#{$reflex-prefix}justify-space-between {
     @include justify-content-space-between();
-
-    @if $legacy-support == true {
-        &.grid {
-            text-align: justify;
-            -moz-text-align-last: justify;
-            text-align-last: justify;
-
-            [class*="#{$reflex-prefix}col-"] {
-                @include reset-text-align();
-            }
-        }
-    }
 }
 
 .#{$reflex-prefix}justify-space-around {
     @include justify-content-space-around();
-
-    @if $legacy-support == true {
-        &.grid {
-            text-align: justify;
-            -moz-text-align-last: justify;
-            text-align-last: justify;
-
-            [class*="#{$reflex-prefix}col-"] {
-                @include reset-text-align();
-            }
-        }
-    }
 }
 
 // --------------------------------------------------
@@ -264,9 +195,6 @@
     max-width: 100%;
     height: auto;
     width: 100%;
-    @if $legacy-support == true {
-        *width: auto;
-    }
 }
 
 .#{$reflex-prefix}flex-footer {
