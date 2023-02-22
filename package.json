@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/schuttelaar/reflex-modernized"
+    "url": "https://github.com/leejordan/reflex.git"
   },
   "keywords": [
     "reflex",
@@ -31,6 +31,7 @@
     "start": "./node_modules/.bin/http-server ./docs -a localhost -c10"
   },
   "devDependencies": {
+    "http-server": "^0.12.3",
     "sass": "^1.58.3"
   }
 }
