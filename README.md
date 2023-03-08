@@ -1,7 +1,7 @@
 # Reflex
 
-![Release](https://img.shields.io/npm/v/reflex-grid.svg)
-![npm downloads](https://img.shields.io/npm/dm/reflex-grid.svg)
+![Release](https://img.shields.io/npm/v/reflex-modernized.svg)
+![npm downloads](https://img.shields.io/npm/dm/reflex-modernized.svg)
 
 A lightweight responsive flexbox grid with cross browser support, an inline-block fallback and no polyfills
 
@@ -46,7 +46,7 @@ You could clone this repo which would allow you to modify the variables and buil
 
 ### Use with npm
 
-If you're familiar with npm you can use `npm install reflex-grid` to have a look around, or add it as a dependency to your node project.
+If you're familiar with npm you can use `npm install reflex-modernized` to have a look around, or add it as a dependency to your node project.
 
 ## Version 2 information
 
